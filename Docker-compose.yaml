@@ -1,0 +1,38 @@
+services:
+  mongo:
+    image: mongo:8
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes: 
+      - database:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    depends_on: 
+      - mongo
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_BASICAUTH_ENABLED: true
+      ME_CONFIG_BASICAUTH_USERNAME: db
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+
+  backend:
+    image: dowells-backend:1.1
+    restart: always
+    depends_on:
+      - mongo
+    ports:
+      - 8000:8000
+
+  frontend:
+    image: dowells-frontend:1.1
+    ports:
+      - 3000:3000
+
+volumes: 
+  database:
