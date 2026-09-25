@@ -22,15 +22,17 @@ services:
       ME_CONFIG_BASICAUTH_PASSWORD: pass
 
   backend:
-    image: dowells-backend:1.1
+    image: aurobindobhuyan/dowells-backend:latest
     restart: always
+    env_file: .env.backend
     depends_on:
       - mongo
     ports:
       - 8000:8000
 
   frontend:
-    image: dowells-frontend:1.1
+    image: aurobindobhuyan/dowells-frontend:latest
+    restart: always
     ports:
       - 3000:3000
 
