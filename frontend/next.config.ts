@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const apiInternalUrl = process.env.API_INTERNAL_URL ?? "http://localhost:8000";
+const apiInternalUrl = process.env.API_INTERNAL_URL ?? "http://backend:8000";
 
 const nextConfig: NextConfig = {
   async rewrites() {
